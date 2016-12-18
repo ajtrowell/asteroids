@@ -14,6 +14,7 @@ function Ship() {
   // Command signals
   this.rotate = 0;
   this.thrust = 0;
+  this.fire = false;
 }
 Ship.prototype.render = function() {
   push();
@@ -58,3 +59,7 @@ Ship.prototype.edgeWrap = function() {
     this.pos.y = height + this.r;
   }
 }
+
+
+
+

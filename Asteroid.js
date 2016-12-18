@@ -1,4 +1,4 @@
-// Ship class constructor
+// Asteroid class constructor
 function Asteroid() {
   // State
   // Random starting position
@@ -15,7 +15,7 @@ function Asteroid() {
   this.r = random(20,50); // nominal radius
   // number of points in asteroid perimeter.
   this.numVertices = round(random(8, 15)); 
-  this.radiusVar = 0.2 * this.r; // Radius +/- this value.
+  this.radiusVar = 0.4 * this.r; // Radius +/- this value.
   this.perimeter = []; // Shape of asteroid, array of vectors.
   this.generate(); // Generate procedural asteroid shape array.
 }
