@@ -18,9 +18,10 @@ function Ship() {
   this.pos = createVector(width/2,height/2); // Start at screen center.  
   this.r = 20;
   this.heading = 0; // degrees CW from vertical.
+  this.vel = createVector(0,0);
 
   // accelerationRate, rotationRate, friction, 
-  this.accelerationRate = 1;
+  this.accelerationRate = 0.3;
   this.rotationRate = 6;
   this.frictionRatio = 0.99;
 
@@ -42,9 +43,21 @@ Ship.prototype.turn = function(angle) {
   this.heading += angle;
 }
 Ship.prototype.update = function() {
-  if(this.rotate !=0) {
+  // Update rotation.
+  if(this.rotate) {
     this.turn(this.rotate * this.rotationRate);
   }
+  // Update velocity
+  if(this.thrust) {
+    let accel = p5.Vector.fromAngle(radians(this.heading-90));
+    accel.mult(this.thrust * this.accelerationRate); // Sign and magnitude.
+    this.vel.add(accel);
+  }
+  // Add friction
+  this.vel.mult(this.frictionRatio);
+  //Update position
+  this.pos.add(this.vel);
+
 }
 
 
