@@ -8,13 +8,21 @@ function setup() {
 
 function draw() {
   background(0);
+  ship.update();
   ship.render();
 }
 
 // Ship class constructor
 function Ship() {
+  // State
   this.pos = createVector(width/2,height/2); // Start at screen center.  
   this.r = 20;
+  this.heading = 0; // degrees CW from vertical.
+
+  // accelerationRate, rotationRate, friction, 
+  this.accelerationRate = 1;
+  this.rotationRate = 6;
+  this.frictionRatio = 0.99;
 
   // Command signals
   this.rotate = 0;
@@ -25,9 +33,18 @@ Ship.prototype.render = function() {
   noFill();
   stroke(255);
   translate(this.pos.x,this.pos.y);
+  rotate(this.heading * PI / 180);
   triangle(-this.r, this.r, this.r, this.r, 0, -this.r);
   //rect(0,0,50,50);
   pop();
+}
+Ship.prototype.turn = function(angle) {
+  this.heading += angle;
+}
+Ship.prototype.update = function() {
+  if(this.rotate !=0) {
+    this.turn(this.rotate * this.rotationRate);
+  }
 }
 
 
