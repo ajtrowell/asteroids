@@ -8,7 +8,7 @@ function Asteroid() {
   // Random velocity magnitude
   this.vel.mult(random(1,4  ))
 
-  this.scale = 40;
+  this.r = 40;
   this.heading = 0; // degrees CW from vertical.
 
   // spin rate
@@ -21,7 +21,7 @@ Asteroid.prototype.render = function() {
   translate(this.pos.x,this.pos.y);
   rotate(this.heading * PI / 180);
   // Nead a fancy asteroid drawing method
-  ellipse(0,0, this.scale, this.scale);
+  ellipse(0,0, this.r*2, this.r*2);
   pop();
 }
 Asteroid.prototype.turn = function(angle) {
@@ -37,14 +37,14 @@ Asteroid.prototype.update = function() {
 }
 Asteroid.prototype.edgeWrap = function() {
   // Position wrapping
-  if(this.pos.x > width + this.scale) {
-    this.pos.x = -this.scale;
-  } else if(this.pos.x < 0 - this.scale) {
-    this.pos.x = width + this.scale;
+  if(this.pos.x > width + this.r) {
+    this.pos.x = -this.r;
+  } else if(this.pos.x < 0 - this.r) {
+    this.pos.x = width + this.r;
   }
-  if(this.pos.y > height + this.scale) {
-    this.pos.y = -this.scale;
-  } else if(this.pos.y < 0 - this.scale) {
-    this.pos.y = height + this.scale;
+  if(this.pos.y > height + this.r) {
+    this.pos.y = -this.r;
+  } else if(this.pos.y < 0 - this.r) {
+    this.pos.y = height + this.r;
   }
 }

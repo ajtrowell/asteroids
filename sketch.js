@@ -1,11 +1,14 @@
 var ship;
 var asteroids = [];
+var numAsteroids = 2;
 
 function setup() {
   createCanvas(windowWidth,windowHeight);
   collideDebug(true);
   ship = new Ship();
-  asteroids.push(new Asteroid());
+  for (i=0; i<numAsteroids; i++) {
+    asteroids.push(new Asteroid());
+  }
 }
 
 function draw() {
