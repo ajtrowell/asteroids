@@ -1,15 +1,22 @@
 var ship;
+var asteroids = [];
 
 function setup() {
   createCanvas(windowWidth,windowHeight);
   collideDebug(true);
   ship = new Ship();
+  asteroids.push(new Asteroid());
 }
 
 function draw() {
   background(0);
   ship.update();
   ship.render();
+
+  for(let rock of asteroids) {
+    rock.update();
+    rock.render();
+  }
 }
 
 

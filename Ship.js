@@ -22,7 +22,6 @@ Ship.prototype.render = function() {
   translate(this.pos.x,this.pos.y);
   rotate(this.heading * PI / 180);
   triangle(-this.r, this.r, this.r, this.r, 0, -this.r);
-  //rect(0,0,50,50);
   pop();
 }
 Ship.prototype.turn = function(angle) {
