@@ -12,8 +12,10 @@ function Asteroid() {
   // spin rate
   this.rotationRate = random(-3,3);
   // Size
-  this.r = 40; // nominal radius
-  this.numVertices = 10; // number of points in asteroid perimeter.
+  this.r = random(20,50); // nominal radius
+  // number of points in asteroid perimeter.
+  this.numVertices = round(random(8, 15)); 
+  this.radiusVar = 0.2 * this.r; // Radius +/- this value.
   this.perimeter = []; // Shape of asteroid, array of vectors.
   this.generate(); // Generate procedural asteroid shape array.
 }
@@ -35,9 +37,10 @@ Asteroid.prototype.render = function() {
 Asteroid.prototype.generate = function() {
   // Procedurally generate a new asteroid.
   for(var i = 0; i < this.numVertices; i++) {
+    let radiusRand = this.r + random(-this.radiusVar,this.radiusVar);
     let angle = map(i, 0, this.numVertices, 0, TWO_PI);
-    let x = this.r*cos(angle);
-    let y = this.r*sin(angle);
+    let x = radiusRand*cos(angle);
+    let y = radiusRand*sin(angle);
     this.perimeter[i]=createVector(x,y);
   }
 }

@@ -1,6 +1,6 @@
 var ship;
 var asteroids = [];
-var numAsteroids = 2;
+var numAsteroids = 5;
 
 function setup() {
   createCanvas(windowWidth,windowHeight);
