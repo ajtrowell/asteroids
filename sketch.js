@@ -57,7 +57,21 @@ Ship.prototype.update = function() {
   this.vel.mult(this.frictionRatio);
   //Update position
   this.pos.add(this.vel);
-
+  // Wrap at edge of screen
+  this.edgeWrap();
+}
+Ship.prototype.edgeWrap = function() {
+  // Position wrapping
+  if(this.pos.x > width + this.r) {
+    this.pos.x = -this.r;
+  } else if(this.pos.x < 0 - this.r) {
+    this.pos.x = width + this.r;
+  }
+  if(this.pos.y > height + this.r) {
+    this.pos.y = -this.r;
+  } else if(this.pos.y < 0 - this.r) {
+    this.pos.y = height + this.r;
+  }
 }
 
 
