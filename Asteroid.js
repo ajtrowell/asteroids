@@ -13,7 +13,7 @@ function Asteroid(pos,r) {
     this.r = r;
   } else {
     // Size
-    this.r = random(20,50); // nominal radius
+    this.r = random(30,47); // nominal radius
   }
 
   // Random velocity heading (0,360)
@@ -27,9 +27,9 @@ function Asteroid(pos,r) {
   // Number of children to spawn in breakUp()
   this.numChildren = 2;
   // Minimum radius r for breakUp() to generate children
-  this.minParentSize = 10;
+  this.minParentSize = 20;
   // Child radius as fraction of parents radius, used in breakUp()
-  this.childSizeRatio = 0.5
+  this.childSizeRatio = 0.75
 
   // number of points in asteroid perimeter.
   this.numVertices = round(random(8, 15)); 
