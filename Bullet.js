@@ -7,12 +7,13 @@ function Bullet(pos,heading) {
   // Constants
   this.r = 1;
   this.speed = 6;
+  this.maxRange = 0.7*(width + height); // set max range
 
   // State
   this.pos = this.initialPos; // Vector
   this.vel = p5.Vector.fromAngle(radians(this.heading-90));
   this.vel.mult(this.speed);
-
+  this.distanceTraveled = 0;
 }
 Bullet.prototype.render = function() {
   push();
@@ -27,6 +28,7 @@ Bullet.prototype.render = function() {
 Bullet.prototype.update = function() {
   //Update position
   this.pos.add(this.vel);
+  this.distanceTraveled += this.speed;
   // Wrap at edge of screen
   this.edgeWrap();
 }
@@ -42,4 +44,7 @@ Bullet.prototype.edgeWrap = function() {
   } else if(this.pos.y < 0 - this.r) {
     this.pos.y = height + this.r;
   }
+}
+Bullet.prototype.isPastMaxRange = function() {
+  return (this.distanceTraveled > this.maxRange);
 }

@@ -2,6 +2,7 @@ var ship;
 var asteroids = [];
 var numAsteroids = 5;
 var bullets = [];
+var bulletsToDelete = [];
 
 function setup() {
   createCanvas(windowWidth,windowHeight);
@@ -23,10 +24,17 @@ function draw() {
     rock.render();
   }
 
-  for(let bullet of bullets) {
-    bullet.update();
-    bullet.render();
+  for(i=0; i<bullets.length; i++) {
+    bullets[i].update();
+    bullets[i].render();
+    if(bullets[i].isPastMaxRange()) {
+      bulletsToDelete.push(i);
+    }
   }
+  for (i=0; i<bulletsToDelete.length; i++) {
+    bullets.splice(bulletsToDelete[i],1); // Remove bullets from array
+  }
+  bulletsToDelete = []; // Clear array after deleting offending bullets
 
 }
 
