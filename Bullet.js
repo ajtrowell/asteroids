@@ -50,3 +50,9 @@ Bullet.prototype.edgeWrap = function() {
 Bullet.prototype.isPastMaxRange = function() {
   return (this.distanceTraveled > this.maxRange);
 }
+Bullet.prototype.hit = function(asteroid) {
+  // Return true if bullet hit asteroid.
+  // Could use collision library and asteroid.perimeter[] for more accuracy.
+  // Current implementation uses asteroid.r for radius.
+  return (this.pos.dist(asteroid.pos) < asteroid.r);
+}

@@ -29,33 +29,17 @@ function keyPressed() {
     ship.shooting = true;
     ship.fire();
   }
-  if(keyCode === LEFT_ARROW) {
-    ship.rotate = -1;
-  } 
-  if(keyCode === RIGHT_ARROW) {
-    ship.rotate = 1;
-  }
-  if(keyCode === UP_ARROW) {
-    ship.thrust = 1;
-  }
-  if(keyCode === DOWN_ARROW) {
-    ship.thrust = -1;
-  }
+  if(keyCode === LEFT_ARROW)  { ship.rotate = -1; } 
+  if(keyCode === RIGHT_ARROW) { ship.rotate =  1; }
+  if(keyCode === UP_ARROW)    { ship.thrust =  1; }
+  if(keyCode === DOWN_ARROW)  { ship.thrust = -1; }
 }
 function keyReleased() {
   if(key == ' ') {
     ship.shooting = false;
   }
-  if(keyCode === LEFT_ARROW) {
-    ship.rotate = 0;
-  } 
-  if(keyCode === RIGHT_ARROW) {
-    ship.rotate = 0;
-  }
-  if(keyCode === UP_ARROW) {
-    ship.thrust = 0;
-  }
-  if(keyCode === DOWN_ARROW) {
-    ship.thrust = 0;
-  }
+  if(keyCode === LEFT_ARROW)  { ship.rotate =  0; } 
+  if(keyCode === RIGHT_ARROW) { ship.rotate =  0; }
+  if(keyCode === UP_ARROW)    { ship.thrust =  0; }
+  if(keyCode === DOWN_ARROW)  { ship.thrust =  0; }
 }
