@@ -60,9 +60,18 @@ Ship.prototype.updateBullets = function() {
     this.bullets[i].update();
     if(this.bullets[i].isPastMaxRange()) {
       this.bullets.splice(i,1); // Delete ith entry in bullets
-    }
-  }
-}
+    } else { // Don't check Bullet.hit() if object was just deleted.
+      // Check for collisions between bullet i and all asteroids:
+      for(j=asteroids.length-1; j>=0; j--) {
+        if(this.bullets[i].hit(asteroids[j])) {
+          this.bullets.splice(i,1); // Delete bullet
+          asteroids.splice(j,1); // Delete asteroid
+          break; // Don't check same bullet again after deletion.
+        }
+      }//for j
+    }//else
+  }//for i
+}//updateBullets()
 Ship.prototype.fire = function() {
   // Fire one bullet. Adds bullet object to this.bullets array.
   // Calculate offset of ship nose:
