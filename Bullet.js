@@ -5,9 +5,10 @@ function Bullet(pos,heading) {
   this.initialPos = pos;
 
   // Constants
-  this.r = 1;
+  this.r = 5;
   this.speed = 6;
-  this.maxRange = 0.7*(width + height); // set max range
+   // set max range to length of window diagonal.
+  this.maxRange = sqrt(pow(width,2) + pow(height,2));
 
   // State
   this.pos = this.initialPos; // Vector
@@ -19,7 +20,7 @@ Bullet.prototype.render = function() {
   push();
   noFill();
   stroke(255);
-  strokeWeight(5);
+  strokeWeight(this.r);
   translate(this.pos.x,this.pos.y);
   rotate(this.heading * PI / 180);
   point(0,0);
@@ -53,6 +54,6 @@ Bullet.prototype.isPastMaxRange = function() {
 Bullet.prototype.hit = function(asteroid) {
   // Return true if bullet hit asteroid.
   // Could use collision library and asteroid.perimeter[] for more accuracy.
-  // Current implementation uses asteroid.r for radius.
-  return (this.pos.dist(asteroid.pos) < asteroid.r);
+  // Current implementation uses asteroid.r + Bullet.r for radius.
+  return (this.pos.dist(asteroid.pos) < (asteroid.r + this.r));
 }
