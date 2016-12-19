@@ -65,7 +65,9 @@ Ship.prototype.updateBullets = function() {
       for(j=asteroids.length-1; j>=0; j--) {
         if(this.bullets[i].hit(asteroids[j])) {
           this.bullets.splice(i,1); // Delete bullet
+          let childAsteroids = asteroids[j].breakUp();
           asteroids.splice(j,1); // Delete asteroid
+          asteroids = asteroids.concat(childAsteroids);
           break; // Don't check same bullet again after deletion.
         }
       }//for j

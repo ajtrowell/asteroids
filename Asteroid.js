@@ -1,18 +1,36 @@
 // Asteroid class constructor
-function Asteroid() {
+function Asteroid(pos,r) {
+  // Optional pos Vector and r size.
   // State
-  // Random starting position
-  this.pos = createVector(random(width),random(height));
+  if(pos) { // Optional input argument
+    this.pos = pos.copy();
+  } else {
+    // Random starting position
+    this.pos = createVector(random(width),random(height));
+  }
+
+  if(r) { // Optional input argument
+    this.r = r;
+  } else {
+    // Size
+    this.r = random(20,50); // nominal radius
+  }
+
   // Random velocity heading (0,360)
   this.vel = p5.Vector.fromAngle(radians(random(360)));
   // Random velocity magnitude
   this.vel.mult(random(1,4))
-
+  // Initial rotation. Cosmetic.
   this.heading = random(360); // degrees CW from vertical.
   // spin rate
   this.rotationRate = random(-3,3);
-  // Size
-  this.r = random(20,50); // nominal radius
+  // Number of children to spawn in breakUp()
+  this.numChildren = 2;
+  // Minimum radius r for breakUp() to generate children
+  this.minParentSize = 10;
+  // Child radius as fraction of parents radius, used in breakUp()
+  this.childSizeRatio = 0.5
+
   // number of points in asteroid perimeter.
   this.numVertices = round(random(8, 15)); 
   this.radiusVar = 0.4 * this.r; // Radius +/- this value.
@@ -69,4 +87,11 @@ Asteroid.prototype.edgeWrap = function() {
   } else if(this.pos.y < 0 - this.r) {
     this.pos.y = height + this.r;
   }
+}
+Asteroid.prototype.breakUp = function() {
+  // Returns a Vector of Asteroid objects to replace self on destruct.o
+  let childAsteroids = [];
+      childAsteroids.push(new Asteroid(this.pos.copy(), this.r/2));
+      childAsteroids.push(new Asteroid(this.pos.copy(), this.r/2));
+  return childAsteroids;
 }
