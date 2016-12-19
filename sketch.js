@@ -19,6 +19,15 @@ function draw() {
   for(let rock of asteroids) {
     rock.update();
   }
+
+  // Restart game after clearing level.
+  if (asteroids.length == 0) {
+    numAsteroids += 1;
+    for (i=0; i<numAsteroids; i++) {
+      asteroids.push(new Asteroid());
+    }   
+  }
+  
 }
 
 
