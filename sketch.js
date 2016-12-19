@@ -23,7 +23,7 @@ function draw() {
     rock.render();
   }
 
-  for(i=0; i<bullets.length; i++) {
+  for(i=bullets.length-1; i>=0; i--) {
     bullets[i].update();
     bullets[i].render();
     if(bullets[i].isPastMaxRange()) {
