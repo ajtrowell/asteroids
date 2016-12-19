@@ -1,7 +1,6 @@
 var ship;
 var asteroids = [];
 var numAsteroids = 5;
-var bullets = [];
 
 function setup() {
   createCanvas(windowWidth,windowHeight);
@@ -20,13 +19,6 @@ function draw() {
   for(let rock of asteroids) {
     rock.update();
   }
-
-  for(i=bullets.length-1; i>=0; i--) {
-    bullets[i].update();
-    if(bullets[i].isPastMaxRange()) {
-      bullets.splice(i,1); // Delete ith entry in bullets
-    }
-  }
 }
 
 
@@ -34,8 +26,8 @@ function draw() {
 // Keyboard Inputs
 function keyPressed() {
   if(key == ' ') {
-    ship.fire = true;
-    bullets.push(new Bullet(ship.pos.copy(),ship.heading));
+    ship.shooting = true;
+    ship.fire();
   }
   if(keyCode === LEFT_ARROW) {
     ship.rotate = -1;
@@ -52,7 +44,7 @@ function keyPressed() {
 }
 function keyReleased() {
   if(key == ' ') {
-    ship.fire = false;
+    ship.shooting = false;
   }
   if(keyCode === LEFT_ARROW) {
     ship.rotate = 0;

@@ -14,7 +14,10 @@ function Ship() {
   // Command signals
   this.rotate = 0;
   this.thrust = 0;
-  this.fire = false;
+  this.shooting = false;
+
+  // Bullet object Array
+  this.bullets = [];
 }
 Ship.prototype.render = function() {
   push();
@@ -45,8 +48,28 @@ Ship.prototype.update = function() {
   this.pos.add(this.vel);
   // Wrap at edge of screen
   this.edgeWrap();
+  // Update Bullets
+  this.updateBullets();
   // Render after updating state.
   this.render();
+}
+Ship.prototype.updateBullets = function() {
+  // Update, delete, and collision detection for all bullets in this.bullets
+  // Update and delete:
+  for(i=this.bullets.length-1; i>=0; i--) {
+    this.bullets[i].update();
+    if(this.bullets[i].isPastMaxRange()) {
+      this.bullets.splice(i,1); // Delete ith entry in bullets
+    }
+  }
+}
+Ship.prototype.fire = function() {
+  // Fire one bullet. Adds bullet object to this.bullets array.
+  // Calculate offset of ship nose:
+  let posFire = p5.Vector.fromAngle(radians(this.heading-90));
+  posFire.mult(this.r);
+  posFire.add(this.pos.x, this.pos.y); 
+  this.bullets.push(new Bullet(posFire.copy(),this.heading));
 }
 Ship.prototype.edgeWrap = function() {
   // Position wrapping
