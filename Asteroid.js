@@ -91,7 +91,10 @@ Asteroid.prototype.edgeWrap = function() {
 Asteroid.prototype.breakUp = function() {
   // Returns a Vector of Asteroid objects to replace self on destruct.o
   let childAsteroids = [];
-      childAsteroids.push(new Asteroid(this.pos.copy(), this.r/2));
-      childAsteroids.push(new Asteroid(this.pos.copy(), this.r/2));
+  if (this.r >= this.minParentSize) {
+    for(let i=0; i<this.numChildren; i++) {
+      childAsteroids.push(new Asteroid(this.pos.copy(), this.r * this.childSizeRatio));
+    }
+  }
   return childAsteroids;
 }

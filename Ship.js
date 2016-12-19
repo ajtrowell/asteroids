@@ -56,13 +56,13 @@ Ship.prototype.update = function() {
 Ship.prototype.updateBullets = function() {
   // Update, delete, and collision detection for all bullets in this.bullets
   // Update and delete:
-  for(i=this.bullets.length-1; i>=0; i--) {
+  for(let i=this.bullets.length-1; i>=0; i--) {
     this.bullets[i].update();
     if(this.bullets[i].isPastMaxRange()) {
       this.bullets.splice(i,1); // Delete ith entry in bullets
     } else { // Don't check Bullet.hit() if object was just deleted.
       // Check for collisions between bullet i and all asteroids:
-      for(j=asteroids.length-1; j>=0; j--) {
+      for(let j=asteroids.length-1; j>=0; j--) {
         if(this.bullets[i].hit(asteroids[j])) {
           this.bullets.splice(i,1); // Delete bullet
           let childAsteroids = asteroids[j].breakUp();
