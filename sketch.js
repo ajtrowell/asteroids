@@ -16,16 +16,13 @@ function setup() {
 function draw() {
   background(0);
   ship.update();
-  ship.render();
 
   for(let rock of asteroids) {
     rock.update();
-    rock.render();
   }
 
   for(i=bullets.length-1; i>=0; i--) {
     bullets[i].update();
-    bullets[i].render();
     if(bullets[i].isPastMaxRange()) {
       bullets.splice(i,1); // Delete ith entry in bullets
     }

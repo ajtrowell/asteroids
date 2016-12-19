@@ -54,6 +54,8 @@ Asteroid.prototype.update = function() {
   this.pos.add(this.vel);
   // Wrap at edge of screen
   this.edgeWrap();
+  // Render after updating state.
+  this.render();
 }
 Asteroid.prototype.edgeWrap = function() {
   // Position wrapping

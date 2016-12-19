@@ -31,6 +31,8 @@ Bullet.prototype.update = function() {
   this.distanceTraveled += this.speed;
   // Wrap at edge of screen
   this.edgeWrap();
+  // Render after updating state.
+  this.render();
 }
 Bullet.prototype.edgeWrap = function() {
   // Position wrapping
