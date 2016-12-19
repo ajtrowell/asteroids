@@ -11,8 +11,6 @@ function setup() {
   for (i=0; i<numAsteroids; i++) {
     asteroids.push(new Asteroid());
   }
-
-  bullets.push(new Bullet(createVector(width/2,height/2),0));
 }
 
 function draw() {
@@ -38,6 +36,7 @@ function draw() {
 function keyPressed() {
   if(key == ' ') {
     ship.fire = true;
+    bullets.push(new Bullet(ship.pos.copy(),ship.heading));
   }
   if(keyCode === LEFT_ARROW) {
     ship.rotate = -1;
