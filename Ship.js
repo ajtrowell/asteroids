@@ -107,12 +107,12 @@ Ship.prototype.hit = function(asteroid) {
   // Return true if given asteroid has hit ship.
 
   // Generate absolute position poly arrays.
-  let shipPoly = this.perimeter.deepClone(); // must be copied
+  let shipPoly = this.perimeter.vectorClone(); // must be copied
   for(let vertexPoint of shipPoly) {
     vertexPoint.add(this.pos); // Add (x,y) displacement.
   }
   
-  let asteroidPoly = asteroid.perimeter.deepClone();
+  let asteroidPoly = asteroid.perimeter.vectorClone();
   for(let vertexPoint of asteroidPoly) {
     vertexPoint.add(asteroid.pos); // Add (x,y) displacement.
   }
@@ -126,23 +126,23 @@ Ship.prototype.collisionDetection = function() {
   for(let i=0; i<asteroids.length; i++) {
     if (this.hit(asteroids[i])) {
       console.log("You Died!");
+      push();
+      noFill();
+      stroke(200,50,50);
+      strokeWeight(12);
+      ellipse(this.pos.x,this.pos.y,this.r*4,this.r*4);
+      pop();
     }
   }
 }
 
 
-Array.prototype.clone = function() {
-  // return a shallow clone
-  return this.slice(0);
-}
-Array.prototype.deepClone = function() {
+Array.prototype.vectorClone = function() {
   // return a deep clone. Used for Array of Vectors.
   let cloneArray = [];
-
   for(let vector of this) {
     cloneArray.push(vector.copy()); // Make deep p5.Vector copy.
   }
   return cloneArray;
-
 }
 
