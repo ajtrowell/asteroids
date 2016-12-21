@@ -2,7 +2,7 @@
 function Ship() {
   // State
   this.pos = createVector(width/2,height/2); // Start at screen center.  
-  this.r = 20;
+  this.r = 20; // Notional 'radius'
   this.heading = 0; // degrees CW from vertical.
   this.vel = createVector(0,0);
 
@@ -15,6 +15,12 @@ function Ship() {
   this.rotate = 0;
   this.thrust = 0;
   this.shooting = false;
+
+  // Ship model
+  this.perimeter = [];
+  this.perimeter.push(createVector(-this.r, this.r));
+  this.perimeter.push(createVector(this.r, this.r));
+  this.perimeter.push(createVector(0, -this.r));
 
   // Bullet object Array
   this.bullets = [];
@@ -50,6 +56,8 @@ Ship.prototype.update = function() {
   this.edgeWrap();
   // Update Bullets
   this.updateBullets();
+  // Check for collisions with asteroids.
+  this.collisionDetection();
   // Render after updating state.
   this.render();
 }
@@ -95,7 +103,45 @@ Ship.prototype.edgeWrap = function() {
     this.pos.y = height + this.r;
   }
 }
+Ship.prototype.hit = function(asteroid) {
+  // Return true if given asteroid has hit ship.
+
+  // Generate absolute position poly arrays.
+  let shipPoly = this.perimeter.deepClone(); // must be copied
+  for(let vertexPoint of shipPoly) {
+    vertexPoint.add(this.pos); // Add (x,y) displacement.
+  }
+  
+  let asteroidPoly = asteroid.perimeter.deepClone();
+  for(let vertexPoint of asteroidPoly) {
+    vertexPoint.add(asteroid.pos); // Add (x,y) displacement.
+  }
+
+  let hit = collidePolyPoly(asteroidPoly, shipPoly, false);
+  return hit;
+}
+Ship.prototype.collisionDetection = function() {
 
 
+  for(let i=0; i<asteroids.length; i++) {
+    if (this.hit(asteroids[i])) {
+      console.log("You Died!");
+    }
+  }
+}
 
+
+Array.prototype.clone = function() {
+  // return a shallow clone
+  return this.slice(0);
+}
+Array.prototype.deepClone = function() {
+  // return a deep clone. Used for Array of Vectors.
+  let cloneArray = this.clone();  // Shallow
+  for(let element of cloneArray) {
+    element = element.copy(); // Make deep, 1 element at a time.
+  }
+  return cloneArray;
+
+}
 
