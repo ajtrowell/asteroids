@@ -137,9 +137,10 @@ Array.prototype.clone = function() {
 }
 Array.prototype.deepClone = function() {
   // return a deep clone. Used for Array of Vectors.
-  let cloneArray = this.clone();  // Shallow
-  for(let element of cloneArray) {
-    element = element.copy(); // Make deep, 1 element at a time.
+  let cloneArray = [];
+
+  for(let vector of this) {
+    cloneArray.push(vector.copy()); // Make deep p5.Vector copy.
   }
   return cloneArray;
 
