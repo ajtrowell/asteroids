@@ -32,8 +32,23 @@ Ship.prototype.render = function() {
   translate(this.pos.x,this.pos.y);
   rotate(this.heading * PI / 180);
   triangle(-this.r, this.r, this.r, this.r, 0, -this.r);
+  if (ship.thrust == 1) {
+    this.fireRender();
+  }
   pop();
 }
+
+Ship.prototype.fireRender = function() {
+  push();
+  stroke(255,0,0); // Red
+  var widthFraction = 0.7;
+  triangle(
+    -this.r * widthFraction, this.r, 
+    this.r * widthFraction, this.r, 
+    0, 2*this.r);
+  pop();
+}
+
 Ship.prototype.turn = function(angle) {
   this.heading += angle;
 }
