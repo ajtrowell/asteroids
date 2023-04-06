@@ -7,7 +7,7 @@ function Ship() {
   this.vel = createVector(0,0);
 
   // accelerationRate, rotationRate, friction, 
-  this.accelerationRate = 0.3;
+  this.accelerationRate = 0.3*1;
   this.rotationRate = 6;
   this.frictionRatio = 0.99;
 
@@ -21,6 +21,9 @@ function Ship() {
   this.perimeter.push(createVector(-this.r, this.r));
   this.perimeter.push(createVector(this.r, this.r));
   this.perimeter.push(createVector(0, -this.r));
+
+  // Ship Thrust Fire animation closure
+  this.fireRender = this.getFireRender();
 
   // Bullet object Array
   this.bullets = [];
@@ -38,15 +41,40 @@ Ship.prototype.render = function() {
   pop();
 }
 
-Ship.prototype.fireRender = function() {
+Ship.prototype.getFireRender = function() {
+  // Place Persistent variables here.
+  var isFireRed = true;
+  var colorTimeCounter = 0;
+  function getFireColor() {
+    var fireColor;
+    if (isFireRed) {
+      fireColor = color(255,0,0); // Red
+    } else
+    {
+      fireColor = color(255,255,0); // Yellow?
+    }
+    var colorDuration = 4;
+    colorTimeCounter++;
+    if (colorTimeCounter >= colorDuration) {
+      // Toggle Color
+      isFireRed = !isFireRed;
+      colorTimeCounter = 0; // Reset color counts.
+    }
+    
+    return fireColor;
+  }
+
+  return function() {
   push();
-  stroke(255,0,0); // Red
+  fireColor = getFireColor();
+  stroke(fireColor); // Red
   var widthFraction = 0.7;
   triangle(
     -this.r * widthFraction, this.r, 
     this.r * widthFraction, this.r, 
     0, 2*this.r);
   pop();
+  }
 }
 
 Ship.prototype.turn = function(angle) {
