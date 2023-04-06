@@ -81,6 +81,11 @@ Ship.prototype.turn = function(angle) {
   this.heading += angle;
 }
 Ship.prototype.update = function() {
+  // support full auto fire
+  if(this.shooting) {
+    this.fire();
+  }
+
   // Update rotation.
   if(this.rotate) {
     this.turn(this.rotate * this.rotationRate);
