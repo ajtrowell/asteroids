@@ -6,7 +6,7 @@ function Bullet(pos,heading) {
 
   // Constants
   this.r = 5;
-  this.speed = 6;
+  this.speed = 20;
    // set max range to length of window diagonal.
   this.maxRange = sqrt(pow(width,2) + pow(height,2));
 
