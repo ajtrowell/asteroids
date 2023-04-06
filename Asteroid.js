@@ -13,7 +13,7 @@ function Asteroid(pos,r) {
     this.r = r;
   } else {
     // Size
-    this.r = random(30,47); // nominal radius
+    this.r = random(30,47*3); // nominal radius
   }
 
   // Random velocity heading (0,360)
